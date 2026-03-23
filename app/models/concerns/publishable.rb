@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-# Concern that publishes domain events via ActiveSupport::Notifications on record creation.
+# Publishes a domain event via ActiveSupport::Notifications after a
+# record is committed to the database. Included by models that
+# participate in the event-driven instrumentation pattern.
 module Publishable
   extend ActiveSupport::Concern
 

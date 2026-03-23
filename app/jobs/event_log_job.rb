@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-# Logs domain events to Rails.logger asynchronously.
+# Logs domain events to the Rails logger for observability.
+# Enqueued asynchronously by DomainEventSubscriber after
+# record creation commits to the database.
 class EventLogJob < ApplicationJob
   queue_as :default
 

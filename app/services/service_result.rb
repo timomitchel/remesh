@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-# Value object encapsulating the outcome of a service call.
+# Value object encapsulating the outcome of a service operation.
+# Provides a consistent success/failure contract with access to
+# the persisted record and any validation errors.
 class ServiceResult
   attr_reader :record, :errors
 

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-# Subscribes to domain events and dispatches them to EventLogJob.
+# Subscribes to domain events published via ActiveSupport::Notifications
+# and dispatches asynchronous side effects (e.g., EventLogJob).
+# Registered at boot time via config/initializers/domain_events.rb.
 module DomainEventSubscriber
   EVENTS = %w[
     conversations.created

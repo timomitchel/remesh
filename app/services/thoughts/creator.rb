@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module Thoughts
-  # Service object that creates a Thought and returns a ServiceResult.
+  # Creates a new thought for a message from the given parameters.
+  # Returns a ServiceResult indicating success or failure.
   class Creator
     def self.call(message:, params:)
       thought = message.thoughts.new(params)
