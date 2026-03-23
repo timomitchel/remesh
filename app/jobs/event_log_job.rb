@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Logs domain events to Rails.logger asynchronously.
 class EventLogJob < ApplicationJob
   queue_as :default
 

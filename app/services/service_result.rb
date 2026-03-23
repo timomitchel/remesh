@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Value object encapsulating the outcome of a service call.
 class ServiceResult
   attr_reader :record, :errors
 

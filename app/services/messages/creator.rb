@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Messages
+  # Service object that creates a Message and returns a ServiceResult.
   class Creator
     def self.call(conversation:, params:)
       message = conversation.messages.new(params)

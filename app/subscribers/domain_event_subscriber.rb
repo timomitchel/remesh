@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Subscribes to domain events and dispatches them to EventLogJob.
 module DomainEventSubscriber
   EVENTS = %w[
     conversations.created

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Handles creation of Thought resources nested under messages.
 class ThoughtsController < ApplicationController
   def new
     @message = Message.find(params[:message_id])
@@ -9,16 +12,16 @@ class ThoughtsController < ApplicationController
     result = Thoughts::Creator.call(message: @message, params: thought_params)
 
     if result.success?
-      redirect_to @message.conversation, notice: "Thought was successfully created."
+      redirect_to @message.conversation, notice: 'Thought was successfully created.' # rubocop:disable Rails/I18nLocaleTexts
     else
       @thought = result.record
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
   private
 
   def thought_params
-    params.require(:thought).permit(:text, :date_time_sent)
+    params.expect(thought: %i[text date_time_sent])
   end
 end

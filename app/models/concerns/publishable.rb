@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Concern that publishes domain events via ActiveSupport::Notifications on record creation.
 module Publishable
   extend ActiveSupport::Concern
 

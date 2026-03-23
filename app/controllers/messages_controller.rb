@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Handles creation and search of Message resources.
 class MessagesController < ApplicationController
   def new
     @conversation = Conversation.find(params[:conversation_id])
@@ -9,24 +12,24 @@ class MessagesController < ApplicationController
     result = Messages::Creator.call(conversation: @conversation, params: message_params)
 
     if result.success?
-      redirect_to @conversation, notice: "Message was successfully created."
+      redirect_to @conversation, notice: 'Message was successfully created.' # rubocop:disable Rails/I18nLocaleTexts
     else
       @message = result.record
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
   def search
     @messages = if params[:q].present?
-      Message.search_by_text(params[:q]).includes(:conversation)
-    else
-      Message.none
-    end
+                  Message.search_by_text(params[:q]).includes(:conversation)
+                else
+                  Message.none
+                end
   end
 
   private
 
   def message_params
-    params.require(:message).permit(:text, :date_time_sent)
+    params.expect(message: %i[text date_time_sent])
   end
 end

@@ -1,12 +1,14 @@
-require "spec_helper"
+# frozen_string_literal: true
 
-ENV["RAILS_ENV"] ||= "test"
-require_relative "../config/environment"
+require 'spec_helper'
 
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+ENV['RAILS_ENV'] ||= 'test'
+require_relative '../config/environment'
 
-require "rspec/rails"
-require "capybara/rspec"
+abort('The Rails environment is running in production mode!') if Rails.env.production?
+
+require 'rspec/rails'
+require 'capybara/rspec'
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -14,7 +16,7 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 
-Rails.root.glob("spec/support/**/*.rb").sort_by(&:to_s).each { |f| require f }
+Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods

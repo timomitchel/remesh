@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Represents a thought associated with a message.
 class Thought < ApplicationRecord
   include Publishable
 

@@ -1,0 +1,16 @@
+plugins:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-factory_bot
+
+AllCops:
+  TargetRubyVersion: 3.3
+  NewCops: enable
+  Exclude:
+    - "bin/**/*"
+    - "db/schema.rb"
+    - "db/migrate/**/*"
+    - "config/**/*"
+    - "Gemfile"
+    - "vendor/**/*"
+    - "node_modules/**/*"
