@@ -1,0 +1,7 @@
+class Message < ApplicationRecord
+  belongs_to :conversation
+  has_many :thoughts, -> { order(date_time_sent: :asc) }, dependent: :destroy
+
+  validates :text, presence: true
+  validates :date_time_sent, presence: true
+end
