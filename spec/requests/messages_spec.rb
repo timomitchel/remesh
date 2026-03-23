@@ -45,7 +45,7 @@ RSpec.describe 'Messages', type: :request do
 
       it 'returns unprocessable entity' do
         post conversation_messages_path(conversation), params: invalid_params
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end

@@ -3,13 +3,19 @@
 require 'rails_helper'
 
 RSpec.describe 'Conversations', type: :system do
+  def set_flatpickr_date(element_id, value)
+    page.execute_script(
+      "document.getElementById('#{element_id}')._flatpickr.setDate('#{value}', true)"
+    )
+  end
+
   it 'allows creating a conversation' do # rubocop:disable RSpec/ExampleLength,RSpec/MultipleExpectations
     visit conversations_path
     click_link 'New Conversation'
 
     fill_in 'Title', with: 'Project Kickoff'
     find('.flatpickr-alt-btn', wait: 5)
-    page.execute_script("document.getElementById('conversation_start_date')._flatpickr.setDate('#{Date.current}', true)")
+    set_flatpickr_date('conversation_start_date', Date.current)
 
     click_button 'Create Conversation'
 
@@ -28,12 +34,12 @@ RSpec.describe 'Conversations', type: :system do
     fill_in 'Title', with: 'Project Kickoff'
     expect(submit_button[:style]).to include('rgb(156, 163, 175)')
 
-    page.execute_script("document.getElementById('conversation_start_date')._flatpickr.setDate('#{Date.current}', true)")
+    set_flatpickr_date('conversation_start_date', Date.current)
 
     expect(submit_button[:style]).to include('rgb(22, 163, 74)')
   end
 
-  it 'displays validation errors for invalid conversation' do # rubocop:disable RSpec/ExampleLength,RSpec/MultipleExpectations
+  it 'displays validation errors for invalid conversation' do # rubocop:disable RSpec/MultipleExpectations
     visit new_conversation_path
 
     find('.flatpickr-alt-btn', wait: 5)

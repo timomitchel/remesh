@@ -6,6 +6,12 @@ RSpec.describe 'Thoughts', type: :system do
   let(:conversation) { create(:conversation, title: 'Team Discussion') }
   let!(:message) { create(:message, conversation: conversation, text: 'What do you think?') }
 
+  def set_flatpickr_date(element_id, value)
+    page.execute_script(
+      "document.getElementById('#{element_id}')._flatpickr.setDate('#{value}', true)"
+    )
+  end
+
   it 'allows creating a thought for a message' do # rubocop:disable RSpec/ExampleLength,RSpec/MultipleExpectations
     visit conversation_path(conversation)
 
@@ -15,7 +21,7 @@ RSpec.describe 'Thoughts', type: :system do
 
     fill_in 'Text', with: 'I think this is great'
     find('.flatpickr-alt-btn', wait: 5)
-    page.execute_script("document.getElementById('thought_date_time_sent')._flatpickr.setDate('#{Time.current.strftime('%Y-%m-%dT%H:%M')}', true)")
+    set_flatpickr_date('thought_date_time_sent', Time.current.strftime('%Y-%m-%dT%H:%M'))
 
     click_button 'Create Thought'
 
@@ -38,7 +44,7 @@ RSpec.describe 'Thoughts', type: :system do
     fill_in 'Text', with: 'I think this is great'
     expect(submit_button[:style]).to include('rgb(156, 163, 175)')
 
-    page.execute_script("document.getElementById('thought_date_time_sent')._flatpickr.setDate('#{Time.current.strftime('%Y-%m-%dT%H:%M')}', true)")
+    set_flatpickr_date('thought_date_time_sent', Time.current.strftime('%Y-%m-%dT%H:%M'))
 
     expect(submit_button[:style]).to include('rgb(22, 163, 74)')
   end

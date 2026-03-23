@@ -5,13 +5,19 @@ require 'rails_helper'
 RSpec.describe 'Messages', type: :system do
   let(:conversation) { create(:conversation, title: 'Team Discussion') }
 
+  def set_flatpickr_date(element_id, value)
+    page.execute_script(
+      "document.getElementById('#{element_id}')._flatpickr.setDate('#{value}', true)"
+    )
+  end
+
   it 'allows creating a message for a conversation' do # rubocop:disable RSpec/ExampleLength,RSpec/MultipleExpectations
     visit conversation_path(conversation)
     click_link 'Add Message'
 
     fill_in 'Text', with: 'This is my message'
     find('.flatpickr-alt-btn', wait: 5)
-    page.execute_script("document.getElementById('message_date_time_sent')._flatpickr.setDate('#{Time.current.strftime('%Y-%m-%dT%H:%M')}', true)")
+    set_flatpickr_date('message_date_time_sent', Time.current.strftime('%Y-%m-%dT%H:%M'))
 
     click_button 'Create Message'
 
@@ -31,7 +37,7 @@ RSpec.describe 'Messages', type: :system do
     fill_in 'Text', with: 'This is my message'
     expect(submit_button[:style]).to include('rgb(156, 163, 175)')
 
-    page.execute_script("document.getElementById('message_date_time_sent')._flatpickr.setDate('#{Time.current.strftime('%Y-%m-%dT%H:%M')}', true)")
+    set_flatpickr_date('message_date_time_sent', Time.current.strftime('%Y-%m-%dT%H:%M'))
 
     expect(submit_button[:style]).to include('rgb(22, 163, 74)')
   end

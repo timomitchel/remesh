@@ -95,7 +95,7 @@ RSpec.describe 'Conversations', type: :request do
 
       it 'returns unprocessable entity' do
         post conversations_path, params: invalid_params
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
 
       it 'displays validation errors' do
