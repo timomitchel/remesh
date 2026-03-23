@@ -1,0 +1,38 @@
+<div class="flex items-center justify-between mb-6">
+  <h1 class="text-2xl font-bold text-gray-900">Conversations</h1>
+  <%= link_to "New Conversation", new_conversation_path,
+      class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm no-underline" %>
+</div>
+
+<%= form_tag conversations_path, method: :get, class: "mb-6" do %>
+  <div class="flex gap-2">
+    <%= text_field_tag :q, params[:q],
+        placeholder: "Search conversations by title...",
+        class: "flex-1 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    <%= submit_tag "Search",
+        class: "bg-gray-100 text-gray-700 px-4 py-2 rounded hover:bg-gray-200 text-sm cursor-pointer" %>
+    <% if params[:q].present? %>
+      <%= link_to "Clear", conversations_path,
+          class: "bg-gray-100 text-gray-700 px-4 py-2 rounded hover:bg-gray-200 text-sm no-underline flex items-center" %>
+    <% end %>
+  </div>
+<% end %>
+
+<% if @conversations.any? %>
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200 divide-y divide-gray-200">
+    <% @conversations.each do |conversation| %>
+      <%= link_to conversation_path(conversation), class: "block p-4 hover:bg-gray-50 no-underline" do %>
+        <h2 class="text-lg font-medium text-blue-600"><%= conversation.title %></h2>
+        <p class="text-sm text-gray-500 mt-1">Started: <%= conversation.start_date.strftime("%B %d, %Y") %></p>
+      <% end %>
+    <% end %>
+  </div>
+<% else %>
+  <p class="text-gray-500 text-center py-8">
+    <% if params[:q].present? %>
+      No conversations found matching "<%= params[:q] %>".
+    <% else %>
+      No conversations yet. Create one to get started.
+    <% end %>
+  </p>
+<% end %>
