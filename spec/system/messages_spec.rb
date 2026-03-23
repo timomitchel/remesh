@@ -10,12 +10,30 @@ RSpec.describe 'Messages', type: :system do
     click_link 'Add Message'
 
     fill_in 'Text', with: 'This is my message'
-    fill_in 'Date/time sent', with: Time.current.strftime('%Y-%m-%dT%H:%M')
+    find('.flatpickr-alt-btn', wait: 5)
+    page.execute_script("document.getElementById('message_date_time_sent')._flatpickr.setDate('#{Time.current.strftime('%Y-%m-%dT%H:%M')}', true)")
 
     click_button 'Create Message'
 
     expect(page).to have_content('Message was successfully created')
     expect(page).to have_content('This is my message')
+  end
+
+  it 'disables submit button until all fields are filled' do # rubocop:disable RSpec/ExampleLength,RSpec/MultipleExpectations
+    visit conversation_path(conversation)
+    click_link 'Add Message'
+
+    find('.flatpickr-alt-btn', wait: 5)
+    submit_button = find_button('Create Message')
+
+    expect(submit_button[:style]).to include('rgb(156, 163, 175)')
+
+    fill_in 'Text', with: 'This is my message'
+    expect(submit_button[:style]).to include('rgb(156, 163, 175)')
+
+    page.execute_script("document.getElementById('message_date_time_sent')._flatpickr.setDate('#{Time.current.strftime('%Y-%m-%dT%H:%M')}', true)")
+
+    expect(submit_button[:style]).to include('rgb(22, 163, 74)')
   end
 
   it 'allows searching messages by content' do # rubocop:disable RSpec/ExampleLength,RSpec/MultipleExpectations

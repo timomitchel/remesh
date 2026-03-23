@@ -1,6 +1,6 @@
 <div class="mb-6">
   <%= link_to "← Back to Conversations", conversations_path,
-      class: "text-sm text-blue-600 hover:text-blue-800 no-underline" %>
+      class: "inline-block bg-blue-600 text-white px-3 py-1.5 rounded hover:bg-blue-700 text-sm no-underline" %>
 </div>
 
 <div class="mb-6">
@@ -29,7 +29,7 @@
           <div class="flex items-center justify-between mb-2">
             <span class="text-sm font-medium text-gray-600">Thoughts (<%= message.thoughts.size %>)</span>
             <%= link_to "Add Thought", new_message_thought_path(message),
-                class: "text-xs text-blue-600 hover:text-blue-800 no-underline" %>
+                class: "bg-blue-600 text-white px-3 py-1.5 rounded hover:bg-blue-700 text-sm no-underline" %>
           </div>
 
           <% if message.thoughts.any? %>

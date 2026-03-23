@@ -12,4 +12,6 @@ Rails.application.routes.draw do
   root "conversations#index"
 
   get "up" => "rails/health#show", as: :rails_health_check
+
+  get ".well-known/appspecific/com.chrome.devtools.json", to: proc { [204, {}, []] }
 end

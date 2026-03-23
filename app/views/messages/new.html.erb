@@ -1,6 +1,6 @@
 <div class="mb-6">
   <%= link_to "← Back to #{@conversation.title}", conversation_path(@conversation),
-      class: "text-sm text-blue-600 hover:text-blue-800 no-underline" %>
+      class: "inline-block bg-blue-600 text-white px-3 py-1.5 rounded hover:bg-blue-700 text-sm no-underline" %>
 </div>
 
 <h1 class="text-2xl font-bold text-gray-900 mb-2">New Message</h1>
@@ -9,22 +9,34 @@
 <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
   <%= render "shared/form_errors", record: @message %>
 
-  <%= form_with(model: [@conversation, @message], class: "space-y-4") do |f| %>
+  <%= form_with(model: [@conversation, @message], class: "space-y-4",
+      data: { controller: "form-validation", action: "input->form-validation#validate submit->form-validation#preventSubmit" }) do |f| %>
     <div>
       <%= f.label :text, class: "block text-sm font-medium text-gray-700 mb-1" %>
       <%= f.text_area :text, rows: 4,
+          data: { form_validation_target: "field" },
           class: "w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" %>
     </div>
 
     <div>
-      <%= f.label :date_time_sent, "Date/time sent", class: "block text-sm font-medium text-gray-700 mb-1" %>
-      <%= f.datetime_local_field :date_time_sent,
-          class: "border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      <%= f.text_field :date_time_sent,
+          value: @message.date_time_sent&.strftime("%Y-%m-%dT%H:%M"),
+          data: {
+            controller: "datepicker",
+            datepicker_enable_time_value: true,
+            datepicker_placeholder_value: "Choose Date & Time",
+            form_validation_target: "field"
+          },
+          class: "border border-gray-300 rounded px-3 py-2 text-sm cursor-pointer" %>
     </div>
 
     <div>
-      <%= f.submit "Create Message",
-          class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm cursor-pointer" %>
+      <button type="submit"
+          data-form-validation-target="submit"
+          class="px-4 py-2 rounded text-sm"
+          style="background-color: #9ca3af; color: white; cursor: not-allowed;">
+        Create Message
+      </button>
     </div>
   <% end %>
 </div>

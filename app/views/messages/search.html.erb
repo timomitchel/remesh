@@ -6,10 +6,10 @@
         placeholder: "Search messages by content...",
         class: "flex-1 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" %>
     <%= submit_tag "Search",
-        class: "bg-gray-100 text-gray-700 px-4 py-2 rounded hover:bg-gray-200 text-sm cursor-pointer" %>
+        class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm cursor-pointer" %>
     <% if params[:q].present? %>
       <%= link_to "Clear", search_messages_path,
-          class: "bg-gray-100 text-gray-700 px-4 py-2 rounded hover:bg-gray-200 text-sm no-underline flex items-center" %>
+          class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm no-underline flex items-center" %>
     <% end %>
   </div>
 <% end %>

@@ -8,7 +8,8 @@ RSpec.describe 'Conversations', type: :system do
     click_link 'New Conversation'
 
     fill_in 'Title', with: 'Project Kickoff'
-    fill_in 'Start date', with: Date.current.to_s
+    find('.flatpickr-alt-btn', wait: 5)
+    page.execute_script("document.getElementById('conversation_start_date')._flatpickr.setDate('#{Date.current}', true)")
 
     click_button 'Create Conversation'
 
@@ -16,10 +17,27 @@ RSpec.describe 'Conversations', type: :system do
     expect(page).to have_content('Project Kickoff')
   end
 
-  it 'displays validation errors for invalid conversation' do # rubocop:disable RSpec/MultipleExpectations
+  it 'disables submit button until all fields are filled' do # rubocop:disable RSpec/ExampleLength,RSpec/MultipleExpectations
     visit new_conversation_path
 
-    click_button 'Create Conversation'
+    find('.flatpickr-alt-btn', wait: 5)
+    submit_button = find_button('Create Conversation')
+
+    expect(submit_button[:style]).to include('rgb(156, 163, 175)')
+
+    fill_in 'Title', with: 'Project Kickoff'
+    expect(submit_button[:style]).to include('rgb(156, 163, 175)')
+
+    page.execute_script("document.getElementById('conversation_start_date')._flatpickr.setDate('#{Date.current}', true)")
+
+    expect(submit_button[:style]).to include('rgb(22, 163, 74)')
+  end
+
+  it 'displays validation errors for invalid conversation' do # rubocop:disable RSpec/ExampleLength,RSpec/MultipleExpectations
+    visit new_conversation_path
+
+    find('.flatpickr-alt-btn', wait: 5)
+    page.execute_script("document.querySelector('form').submit()")
 
     expect(page).to have_content("Title can't be blank")
     expect(page).to have_content("Start date can't be blank")
