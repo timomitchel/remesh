@@ -4,6 +4,12 @@ A server-rendered Rails 8 app for managing conversations, messages, and thoughts
 
 ---
 
+## Demo
+
+https://github.com/user-attachments/assets/9d723c19-767a-46d7-84a7-f9e16322a0e1
+
+---
+
 ## Stack
 
 | Layer | Technology |
