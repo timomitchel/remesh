@@ -20,6 +20,8 @@ Before every commit, **always** run:
 
 Do not commit if either fails. Fix issues first.
 
+**Before committing, always present a summary to the user for review.** List the files changed and a brief description of each change. Wait for the user to approve before running `git commit`.
+
 ## Code Review
 
 - **Run the code-reviewer superpowers agent** when opening a new PR. Review your own work before requesting human review.
