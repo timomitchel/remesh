@@ -18,6 +18,16 @@ RSpec.describe Messages::Creator do
         expect(result).to be_success
         expect(result.record.conversation).to eq(conversation)
       end
+
+      it "publishes a domain event" do
+        expect {
+          described_class.call(conversation: conversation, params: params)
+        }.to have_enqueued_job(EventLogJob).with(
+          event_name: "messages.created",
+          record_type: "Message",
+          record_id: anything
+        )
+      end
     end
 
     context "with invalid params" do

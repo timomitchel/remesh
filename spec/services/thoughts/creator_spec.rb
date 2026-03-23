@@ -18,6 +18,16 @@ RSpec.describe Thoughts::Creator do
         expect(result).to be_success
         expect(result.record.message).to eq(message)
       end
+
+      it "publishes a domain event" do
+        expect {
+          described_class.call(message: message, params: params)
+        }.to have_enqueued_job(EventLogJob).with(
+          event_name: "thoughts.created",
+          record_type: "Thought",
+          record_id: anything
+        )
+      end
     end
 
     context "with invalid params" do

@@ -1,4 +1,6 @@
 class Message < ApplicationRecord
+  include Publishable
+
   belongs_to :conversation
   has_many :thoughts, -> { order(date_time_sent: :asc) }, dependent: :destroy
 
