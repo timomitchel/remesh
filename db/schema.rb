@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_23_152712) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_23_160923) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
@@ -20,6 +20,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_23_152712) do
     t.date "start_date", null: false
     t.string "title", null: false
     t.datetime "updated_at", null: false
+    t.index ["start_date"], name: "index_conversations_on_start_date"
     t.index ["title"], name: "index_conversations_on_title_trigram", opclass: :gin_trgm_ops, using: :gin
   end
 
