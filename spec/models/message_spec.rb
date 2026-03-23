@@ -17,4 +17,35 @@ RSpec.describe Message, type: :model do
       expect { message.destroy }.to change(Thought, :count).by(-3)
     end
   end
+
+  describe ".search_by_text" do
+    let(:conversation) { create(:conversation) }
+    let!(:matching) { create(:message, conversation: conversation, text: "Great idea about the project") }
+    let!(:non_matching) { create(:message, conversation: conversation, text: "Let's schedule a meeting") }
+
+    it "returns messages matching the query (case-insensitive)" do
+      results = Message.search_by_text("idea")
+      expect(results).to include(matching)
+      expect(results).not_to include(non_matching)
+    end
+
+    it "returns partial matches" do
+      expect(Message.search_by_text("great")).to include(matching)
+    end
+
+    it "returns none for blank query" do
+      expect(Message.search_by_text("")).to be_empty
+      expect(Message.search_by_text(nil)).to be_empty
+    end
+
+    it "sanitizes % in search input" do
+      special = create(:message, conversation: conversation, text: "Success rate: 95%")
+      expect(Message.search_by_text("95%")).to include(special)
+    end
+
+    it "sanitizes _ in search input" do
+      special = create(:message, conversation: conversation, text: "use snake_case here")
+      expect(Message.search_by_text("snake_c")).to include(special)
+    end
+  end
 end

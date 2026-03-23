@@ -4,4 +4,9 @@ class Message < ApplicationRecord
 
   validates :text, presence: true
   validates :date_time_sent, presence: true
+
+  scope :search_by_text, ->(query) {
+    return none if query.blank?
+    where("text ILIKE ?", "%#{sanitize_sql_like(query)}%")
+  }
 end
