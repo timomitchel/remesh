@@ -8,7 +8,7 @@ A server-rendered Rails 8 app for managing conversations, messages, and thoughts
 
 | Layer | Technology |
 |-------|-----------|
-| Language | Ruby 3.3.0 |
+| Language | Ruby 3.4.2 |
 | Framework | Rails 8.1.2 |
 | Database | PostgreSQL 16 |
 | CSS | Tailwind CSS v4 |
@@ -19,7 +19,7 @@ A server-rendered Rails 8 app for managing conversations, messages, and thoughts
 
 ## Prerequisites
 
-- **Ruby 3.3.0** — recommend [rbenv](https://github.com/rbenv/rbenv) or [asdf](https://asdf-vm.com/)
+- **Ruby 3.4.2** — recommend [rbenv](https://github.com/rbenv/rbenv) or [asdf](https://asdf-vm.com/)
 - **PostgreSQL 16+** — must be running locally
 - **Chrome or Chromium** — required for system (feature) tests
 
@@ -28,7 +28,7 @@ A server-rendered Rails 8 app for managing conversations, messages, and thoughts
 ## Setup Instructions
 
 ```bash
-git clone <repo-url>
+git clone git@github.com:timomitchel/remesh.git
 cd remesh
 bundle install
 bin/rails db:create db:migrate
