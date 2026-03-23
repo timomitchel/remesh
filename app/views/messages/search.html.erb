@@ -1,0 +1,38 @@
+<h1 class="text-2xl font-bold text-gray-900 mb-6">Search Messages</h1>
+
+<%= form_tag search_messages_path, method: :get, class: "mb-6" do %>
+  <div class="flex gap-2">
+    <%= text_field_tag :q, params[:q],
+        placeholder: "Search messages by content...",
+        class: "flex-1 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    <%= submit_tag "Search",
+        class: "bg-gray-100 text-gray-700 px-4 py-2 rounded hover:bg-gray-200 text-sm cursor-pointer" %>
+    <% if params[:q].present? %>
+      <%= link_to "Clear", search_messages_path,
+          class: "bg-gray-100 text-gray-700 px-4 py-2 rounded hover:bg-gray-200 text-sm no-underline flex items-center" %>
+    <% end %>
+  </div>
+<% end %>
+
+<% if params[:q].present? %>
+  <% if @messages.any? %>
+    <p class="text-sm text-gray-500 mb-4"><%= @messages.size %> result(s) for "<%= params[:q] %>"</p>
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 divide-y divide-gray-200">
+      <% @messages.each do |message| %>
+        <div class="p-4">
+          <p class="text-gray-800"><%= message.text %></p>
+          <div class="mt-2 flex items-center gap-3 text-xs text-gray-500">
+            <span><%= message.date_time_sent.strftime("%b %d, %Y %I:%M %p") %></span>
+            <span>&middot;</span>
+            <%= link_to message.conversation.title, conversation_path(message.conversation),
+                class: "text-blue-600 hover:text-blue-800 no-underline" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-gray-500 text-center py-8">No messages found matching "<%= params[:q] %>".</p>
+  <% end %>
+<% else %>
+  <p class="text-gray-500 text-center py-8">Enter a search term to find messages.</p>
+<% end %>
