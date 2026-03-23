@@ -185,3 +185,38 @@ The emphasis was on **planning over coding**. The project began with a structure
 - Balancing thoroughness with simplicity — resisted gold-plating while still demonstrating senior engineering patterns
 - Keeping the event pattern lightweight so it serves as a clear extension point rather than unnecessary complexity
 - Managing the tension between "senior engineering signals" (service objects, event-driven design) and YAGNI
+
+### Prompts
+
+Below is the complete history of prompts sent to Claude Code across all sessions for this project, in chronological order.
+
+**Session 1 — Initial build**
+
+1. "Move this file: `/Users/timtyrrell/Downloads/remesh_take_home_llm_brief.md` into this directory, and begin implementing the plans in that file."
+2. "Continue with max effort"
+3. "Looks like you stopped, can you continue with the plan"
+4. "For the create thought page, we should record the timestamp automatically on the backend. Remove anything related to the timestamp selection box on the frontend and update the specs accordingly."
+5. "Sorry, lets revert the changes and allow the time to be an input, I see that the user should be able to input these fields on the requirements doc."
+6. "Great, lets do a security audit of the entire repo and make sure we didn't introduce any security risks. Also, add rubocop, make sure the default rubocop settings are enforced, and add top level documentation comments for each service class or custom notification/job class."
+
+**Session 2 — UI polish, datepickers, form validation, and deployment**
+
+7. "There are a few issues with the datepicker. We should just see 'Choose Date & Time' on the button before the user selects anything. We should have a way to advance/accept the input on the pop up other than clicking outside the pop up modal. And, when we click anywhere on the element, that should open the date picker. Address this feedback on all datepickers in the app."
+8. "See image and previous prompt" *(attached screenshot of native datepicker)*
+9. "Great, can we also give any actionable/clickable elements a button ui? For example, in the image, add thought and back to conversations should have a button ui/look/element"
+10. "Add thought should have a clean shape and look professional like Add message. Fix this"
+11. "I want all actions/buttons to have the same shape/style/color – Change them to all be the blue with white text style."
+12. "All the date pickers should have the same style as well."
+13. "I DO want them to clearly have a difference between 'Choose Date' and 'Choose Date & Time' to represent what is underneath, but I want them to look like the other buttons in the app with the blue/white/hover that is the same."
+14. "The color of the datepicker font doesn't quite match, and we want the size to line up with the element underneath. Create Thought is the example in the screenshot"
+15. "What is the caret-color element representing?"
+16. "We can get rid of this text above the element: Date/time sent. The sizing of the two buttons still doesn't match in the screenshot"
+17. "The Create Thought button should be grayed out until a user has filled in the message and chosen a date/time. Once the user has completed those required fields, the submit button should change to green"
+18. "Make sure you add specs to verify this."
+19. "You did something in your disabling to hide the button completely, but I just want the color to be grey first, not hidden."
+20. "I'm also seeing these devtools errors: `ActionController::RoutingError (No route matches [GET] \"/.well-known/appspecific/com.chrome.devtools.json\")` — And, I don't see the button still"
+21. "You can see the devtools have the element selected here but it's not visible on the screen. We need to fix visibility." *(attached screenshot with DevTools)*
+22. "Still not quite right" *(attached screenshot showing Tailwind base layer override)*
+23. "Great, that actually worked. Now lets finish up these changes with a commit and merge to main"
+24. "Great, make sure you're auth'd on github as timomitchel. Then check the currently tracked files to make sure you aren't pushing anything sensitive or irrelevant. If you are, remove them from the git history and add to gitignore. Once you've finished all of these checks, Then push this repo up to create a new repo in github."
+25. "Can you grab the history of my prompts from all sessions that started in this repo and add a section named 'prompts' to the README in the AI section?"
