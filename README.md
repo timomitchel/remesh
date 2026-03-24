@@ -193,6 +193,7 @@ Both planning documents were reviewed and edited by hand before implementation b
 - Added architecture diagrams (Mermaid) beyond the brief requirements
 - Reviewed and approved each design section before allowing implementation to proceed
 - Iteratively refined UI (datepickers, button styling, form validation) through screenshot-driven feedback
+- Established guardrails for Claude Code through multiple layers: the prompt-engineered LLM brief, `CLAUDE.md` project rules, persistent memories, RuboCop enforcement, a comprehensive RSpec test suite, and Claude in Chrome browser verification for UI changes
 
 ### Challenges
 
@@ -201,6 +202,7 @@ Both planning documents were reviewed and edited by hand before implementation b
 - Managing the tension between "senior engineering signals" (service objects, event-driven design) and YAGNI
 - Tailwind v4 CSS layer cascade conflicts with dynamically-styled button elements required inline styles as a workaround
 - Flatpickr integration with Stimulus required careful event wiring (`onChange` → `input` event bubbling) for form validation
+- Adhering to time constraints while maintaining code quality and test coverage
 
 <details>
 <summary><h3>Prompts</h3></summary>
